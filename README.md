@@ -44,7 +44,44 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deployment
 
-The easiest deployment is [Vercel](https://vercel.com/new).
+### Via Vercel Dashboard (Recommended)
+
+1. Sign up at [vercel.com](https://vercel.com) using your **GitHub account**
+2. Dashboard → "Add New..." → "Project"
+3. Import **OffTheWorldlyRoad** from the repo list
+4. Vercel auto-detects Next.js — keep all defaults
+5. Click **Deploy**
+
+Free tier limits: unlimited projects, 100 GB bandwidth/month, 6,000 build minutes/month.
+
+### Via Vercel CLI
+
+```bash
+# Install the CLI
+npm install -g vercel
+
+# Deploy a preview build
+vercel
+
+# Deploy to production
+vercel --prod
+
+# Pull remote environment variables locally
+vercel env pull .env.local
+```
+
+### Environment Variables
+
+Set via CLI:
+```bash
+vercel env add KEY_NAME
+```
+
+Or via Dashboard: Project Settings → Environment Variables.
+
+### Custom Domain
+
+Project Settings → Domains → Add your domain. Vercel provides free SSL automatically.
 
 ## License
 
