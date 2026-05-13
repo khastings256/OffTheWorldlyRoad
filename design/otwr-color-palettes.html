@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTWR — Color Palette Options</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --font-serif: 'Cormorant Garamond', Georgia, serif; --font-sans: 'Inter', system-ui, sans-serif; }
+  body { font-family: var(--font-sans); }
+  .font-serif { font-family: var(--font-serif); }
+  .swatch { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+  .card { transition: transform .2s ease, box-shadow .2s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -12px rgba(0,0,0,0.18); }
+  .preview-hero { background-size: cover; background-position: center; position: relative; }
+  .preview-hero::after { content: ''; position: absolute; inset: 0; }
+</style>
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen">
+
+<header class="max-w-6xl mx-auto px-6 pt-16 pb-8">
+  <p class="text-xs font-semibold tracking-[0.2em] uppercase text-stone-400 mb-3">Off The Worldly Road</p>
+  <h1 class="font-serif text-5xl md:text-6xl font-bold text-stone-900 leading-[1.1] mb-4">Color Palette Study</h1>
+  <p class="text-lg text-stone-500 max-w-2xl leading-relaxed">
+    Three directions for a homepage that feels <span class="text-stone-800 font-medium">rugged enough for the wilderness</span> and <span class="text-stone-800 font-medium">peaceful enough for the soul</span>.
+    Each palette is built for light/dark modes, photography-forward layouts, and quiet faith-forward tone.
+  </p>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 pb-24 space-y-20">
+
+<!-- OPTION 1 -->
+<section class="card bg-white rounded-2xl border border-stone-200 overflow-hidden">
+  <div class="px-8 pt-10 pb-6 border-b border-stone-100">
+    <div class="flex items-baseline gap-4 mb-2">
+      <span class="text-xs font-bold tracking-widest uppercase text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full">Option 1</span>
+      <h2 class="font-serif text-3xl font-bold text-stone-900">Canyon &amp; Candlelight</h2>
+    </div>
+    <p class="text-stone-500 max-w-3xl leading-relaxed">
+      Warm desert stone, burnt clay, and muted gold. Rugged like red-rock canyons at golden hour; peaceful like sanctuary light.
+      Best for: bold photography, sun-drenched landscapes, warm personality.
+    </p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">warm</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">earthy</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">inviting</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">dusk</span>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-0">
+    <!-- Swatches -->
+    <div class="p-8 border-b md:border-b-0 md:border-r border-stone-100">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Light Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#FDF8F3"></div>
+          <div class="text-xs font-medium text-stone-700">Parchment</div>
+          <div class="text-[10px] font-mono text-stone-400">#FDF8F3</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#E8DDD0"></div>
+          <div class="text-xs font-medium text-stone-700">Sandstone</div>
+          <div class="text-[10px] font-mono text-stone-400">#E8DDD0</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#8C4A2F"></div>
+          <div class="text-xs font-medium text-stone-700">Rust</div>
+          <div class="text-[10px] font-mono text-stone-400">#8C4A2F</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#BFA36F"></div>
+          <div class="text-xs font-medium text-stone-700">Gold Dust</div>
+          <div class="text-[10px] font-mono text-stone-400">#BFA36F</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#3D2B1F"></div>
+          <div class="text-xs font-medium text-stone-700">Umber</div>
+          <div class="text-[10px] font-mono text-stone-400">#3D2B1F</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#5E6E5A"></div>
+          <div class="text-xs font-medium text-stone-700">Sage Shadow</div>
+          <div class="text-[10px] font-mono text-stone-400">#5E6E5A</div>
+        </div>
+      </div>
+
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mt-8 mb-5">Dark Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#1C1512"></div>
+          <div class="text-xs font-medium text-stone-700">Obsidian</div>
+          <div class="text-[10px] font-mono text-stone-400">#1C1512</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#2E211A"></div>
+          <div class="text-xs font-medium text-stone-700">Burnt Wood</div>
+          <div class="text-[10px] font-mono text-stone-400">#2E211A</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#D4A574"></div>
+          <div class="text-xs font-medium text-stone-700">Apricot</div>
+          <div class="text-[10px] font-mono text-stone-400">#D4A574</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#FDF8F3"></div>
+          <div class="text-xs font-medium text-stone-700">Parchment Text</div>
+          <div class="text-[10px] font-mono text-stone-400">#FDF8F3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini Preview -->
+    <div class="p-8 bg-stone-50/50">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Mini Preview</h3>
+      <div class="rounded-xl overflow-hidden border border-stone-200 shadow-sm">
+        <div class="h-40 relative" style="background: linear-gradient(135deg, #8C4A2F 0%, #BFA36F 100%);">
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <h4 class="font-serif text-2xl text-white/95 font-bold tracking-tight">Off The Worldly Road</h4>
+            <p class="text-white/75 text-xs mt-1 font-light tracking-wide">FAITH · WILDERNESS · LIGHT</p>
+          </div>
+        </div>
+        <div class="bg-[#FDF8F3] px-5 py-5 space-y-3">
+          <div class="h-2.5 w-24 rounded-full bg-[#8C4A2F]"></div>
+          <div class="h-2 w-full rounded-full bg-[#E8DDD0]"></div>
+          <div class="h-2 w-5/6 rounded-full bg-[#E8DDD0]"></div>
+          <div class="flex gap-2 mt-4">
+            <div class="h-8 px-3 rounded-lg bg-[#8C4A2F] text-white text-[10px] flex items-center font-medium">Read</div>
+            <div class="h-8 px-3 rounded-lg border border-[#8C4A2F] text-[#8C4A2F] text-[10px] flex items-center font-medium">Explore</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-[11px] text-stone-400 mt-3 leading-relaxed">
+        <strong class="text-stone-600">Rationale:</strong> The rust-to-gold gradient echoes canyon walls at sunset. Parchment backgrounds keep text readable and warm. Sage adds outdoor credibility without going full forest-green.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION 2 -->
+<section class="card bg-white rounded-2xl border border-stone-200 overflow-hidden">
+  <div class="px-8 pt-10 pb-6 border-b border-stone-100">
+    <div class="flex items-baseline gap-4 mb-2">
+      <span class="text-xs font-bold tracking-widest uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full">Option 2</span>
+      <h2 class="font-serif text-3xl font-bold text-stone-900">Pine &amp; Psalm</h2>
+    </div>
+    <p class="text-stone-500 max-w-3xl leading-relaxed">
+      Deep evergreen, river-stone gray, and misty dawn light. Rugged like old-growth trails and mountain fog; peaceful like morning stillness and quiet scripture.
+      Best for: moody photography, contemplative writing, monastic calm.
+    </p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">cool</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">muted</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">forested</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">timeless</span>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-0">
+    <div class="p-8 border-b md:border-b-0 md:border-r border-stone-100">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Light Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#F6F5F0"></div>
+          <div class="text-xs font-medium text-stone-700">Mist</div>
+          <div class="text-[10px] font-mono text-stone-400">#F6F5F0</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#D8D4C9"></div>
+          <div class="text-xs font-medium text-stone-700">River Rock</div>
+          <div class="text-[10px] font-mono text-stone-400">#D8D4C9</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#3A4D39"></div>
+          <div class="text-xs font-medium text-stone-700">Pine</div>
+          <div class="text-[10px] font-mono text-stone-400">#3A4D39</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#5C7A6B"></div>
+          <div class="text-xs font-medium text-stone-700">Moss</div>
+          <div class="text-[10px] font-mono text-stone-400">#5C7A6B</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#1E2622"></div>
+          <div class="text-xs font-medium text-stone-700">Charcoal Bark</div>
+          <div class="text-[10px] font-mono text-stone-400">#1E2622</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#8B7E66"></div>
+          <div class="text-xs font-medium text-stone-700">Driftwood</div>
+          <div class="text-[10px] font-mono text-stone-400">#8B7E66</div>
+        </div>
+      </div>
+
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mt-8 mb-5">Dark Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#121C17"></div>
+          <div class="text-xs font-medium text-stone-700">Midnight Pine</div>
+          <div class="text-[10px] font-mono text-stone-400">#121C17</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#1A2A22"></div>
+          <div class="text-xs font-medium text-stone-700">Deep Forest</div>
+          <div class="text-[10px] font-mono text-stone-400">#1A2A22</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#7A9E87"></div>
+          <div class="text-xs font-medium text-stone-700">Fern Glow</div>
+          <div class="text-[10px] font-mono text-stone-400">#7A9E87</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#E8E6DF"></div>
+          <div class="text-xs font-medium text-stone-700">Fog Text</div>
+          <div class="text-[10px] font-mono text-stone-400">#E8E6DF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-8 bg-stone-50/50">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Mini Preview</h3>
+      <div class="rounded-xl overflow-hidden border border-stone-200 shadow-sm">
+        <div class="h-40 relative" style="background: linear-gradient(135deg, #3A4D39 0%, #5C7A6B 100%);">
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <h4 class="font-serif text-2xl text-white/95 font-bold tracking-tight">Off The Worldly Road</h4>
+            <p class="text-white/75 text-xs mt-1 font-light tracking-wide">FAITH · WILDERNESS · LIGHT</p>
+          </div>
+        </div>
+        <div class="bg-[#F6F5F0] px-5 py-5 space-y-3">
+          <div class="h-2.5 w-24 rounded-full bg-[#3A4D39]"></div>
+          <div class="h-2 w-full rounded-full bg-[#D8D4C9]"></div>
+          <div class="h-2 w-5/6 rounded-full bg-[#D8D4C9]"></div>
+          <div class="flex gap-2 mt-4">
+            <div class="h-8 px-3 rounded-lg bg-[#3A4D39] text-white text-[10px] flex items-center font-medium">Read</div>
+            <div class="h-8 px-3 rounded-lg border border-[#3A4D39] text-[#3A4D39] text-[10px] flex items-center font-medium">Explore</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-[11px] text-stone-400 mt-3 leading-relaxed">
+        <strong class="text-stone-600">Rationale:</strong> Pine and moss ground the palette in untamed wilderness. Mist and river-rock neutrals keep it serene and readable. Driftwood adds organic warmth so it never feels sterile.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION 3 -->
+<section class="card bg-white rounded-2xl border border-stone-200 overflow-hidden">
+  <div class="px-8 pt-10 pb-6 border-b border-stone-100">
+    <div class="flex items-baseline gap-4 mb-2">
+      <span class="text-xs font-bold tracking-widest uppercase text-indigo-900 bg-indigo-50 px-2.5 py-1 rounded-full">Option 3</span>
+      <h2 class="font-serif text-3xl font-bold text-stone-900">Dusk &amp; Devotion</h2>
+    </div>
+    <p class="text-stone-500 max-w-3xl leading-relaxed">
+      Weathered indigo, twilight purple, and desert sand. Rugged like a dirt road fading into evening hills; peaceful like vespers and open sky.
+      Best for: poetic voice, vast landscapes, spiritual contemplation.
+    </p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">moody</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">contemplative</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">twilight</span>
+      <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">expansive</span>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-0">
+    <div class="p-8 border-b md:border-b-0 md:border-r border-stone-100">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Light Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#FAF9F6"></div>
+          <div class="text-xs font-medium text-stone-700">Linen</div>
+          <div class="text-[10px] font-mono text-stone-400">#FAF9F6</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#E2DDD5"></div>
+          <div class="text-xs font-medium text-stone-700">Dune</div>
+          <div class="text-[10px] font-mono text-stone-400">#E2DDD5</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#4A4E69"></div>
+          <div class="text-xs font-medium text-stone-700">Indigo Stone</div>
+          <div class="text-[10px] font-mono text-stone-400">#4A4E69</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#9A8C98"></div>
+          <div class="text-xs font-medium text-stone-700">Dusk Mauve</div>
+          <div class="text-[10px] font-mono text-stone-400">#9A8C98</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#22223B"></div>
+          <div class="text-xs font-medium text-stone-700">Midnight Ink</div>
+          <div class="text-[10px] font-mono text-stone-400">#22223B</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#C9ADA7"></div>
+          <div class="text-xs font-medium text-stone-700">Warm Clay</div>
+          <div class="text-[10px] font-mono text-stone-400">#C9ADA7</div>
+        </div>
+      </div>
+
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mt-8 mb-5">Dark Mode</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#161422"></div>
+          <div class="text-xs font-medium text-stone-700">Deep Twilight</div>
+          <div class="text-[10px] font-mono text-stone-400">#161422</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#1E1D2E"></div>
+          <div class="text-xs font-medium text-stone-700">Slate Night</div>
+          <div class="text-[10px] font-mono text-stone-400">#1E1D2E</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#B8A9C9"></div>
+          <div class="text-xs font-medium text-stone-700">Lavender Light</div>
+          <div class="text-[10px] font-mono text-stone-400">#B8A9C9</div>
+        </div>
+        <div class="space-y-2">
+          <div class="swatch h-20 rounded-xl" style="background:#F0EBE3"></div>
+          <div class="text-xs font-medium text-stone-700">Linen Text</div>
+          <div class="text-[10px] font-mono text-stone-400">#F0EBE3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-8 bg-stone-50/50">
+      <h3 class="text-xs font-semibold tracking-widest uppercase text-stone-400 mb-5">Mini Preview</h3>
+      <div class="rounded-xl overflow-hidden border border-stone-200 shadow-sm">
+        <div class="h-40 relative" style="background: linear-gradient(135deg, #4A4E69 0%, #9A8C98 100%);">
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <h4 class="font-serif text-2xl text-white/95 font-bold tracking-tight">Off The Worldly Road</h4>
+            <p class="text-white/75 text-xs mt-1 font-light tracking-wide">FAITH · WILDERNESS · LIGHT</p>
+          </div>
+        </div>
+        <div class="bg-[#FAF9F6] px-5 py-5 space-y-3">
+          <div class="h-2.5 w-24 rounded-full bg-[#4A4E69]"></div>
+          <div class="h-2 w-full rounded-full bg-[#E2DDD5]"></div>
+          <div class="h-2 w-5/6 rounded-full bg-[#E2DDD5]"></div>
+          <div class="flex gap-2 mt-4">
+            <div class="h-8 px-3 rounded-lg bg-[#4A4E69] text-white text-[10px] flex items-center font-medium">Read</div>
+            <div class="h-8 px-3 rounded-lg border border-[#4A4E69] text-[#4A4E69] text-[10px] flex items-center font-medium">Explore</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-[11px] text-stone-400 mt-3 leading-relaxed">
+        <strong class="text-stone-600">Rationale:</strong> Indigo and mauve carry spiritual weight without being ecclesiastical. Warm clay and dune keep the palette grounded in real earth. The overall effect is vast, quiet, and deeply personal.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison & Tailwind mapping -->
+<section class="bg-white rounded-2xl border border-stone-200 p-8">
+  <h2 class="font-serif text-2xl font-bold text-stone-900 mb-6">Quick Comparison</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left">
+      <thead>
+        <tr class="border-b border-stone-200 text-stone-400 text-xs uppercase tracking-wider">
+          <th class="pb-3 font-medium">Dimension</th>
+          <th class="pb-3 font-medium">Canyon &amp; Candlelight</th>
+          <th class="pb-3 font-medium">Pine &amp; Psalm</th>
+          <th class="pb-3 font-medium">Dusk &amp; Devotion</th>
+        </tr>
+      </thead>
+      <tbody class="text-stone-700">
+        <tr class="border-b border-stone-100">
+          <td class="py-3 font-medium text-stone-900">Temperature</td>
+          <td class="py-3">Warm</td>
+          <td class="py-3">Cool-warm</td>
+          <td class="py-3">Cool-neutral</td>
+        </tr>
+        <tr class="border-b border-stone-100">
+          <td class="py-3 font-medium text-stone-900">Mood</td>
+          <td class="py-3">Sunset, sanctuary, firelight</td>
+          <td class="py-3">Morning mist, stillness, breath</td>
+          <td class="py-3">Twilight, vastness, prayer</td>
+        </tr>
+        <tr class="border-b border-stone-100">
+          <td class="py-3 font-medium text-stone-900">Photography</td>
+          <td class="py-3">Desert, golden hour, red rock</td>
+          <td class="py-3">Forest, fog, rivers, mountains</td>
+          <td class="py-3">Open plains, night sky, dusk hills</td>
+        </tr>
+        <tr class="border-b border-stone-100">
+          <td class="py-3 font-medium text-stone-900">Faith tone</td>
+          <td class="py-3">Warm revival, welcoming</td>
+          <td class="py-3">Contemplative, monastic</td>
+          <td class="py-3">Mystical, reverent, poetic</td>
+        </tr>
+        <tr>
+          <td class="py-3 font-medium text-stone-900">Risk</td>
+          <td class="py-3">Can feel rustic/crafty if overused</td>
+          <td class="py-3">Can feel cold without driftwood accent</td>
+          <td class="py-3">Can feel somber without warm balance</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 pb-12 text-xs text-stone-400">
+  Created for Off The Worldly Road. Palettes are designed for Next.js + Tailwind CSS with light/dark mode support.
+</footer>
+
+</body>
+</html>

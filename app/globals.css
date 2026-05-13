@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ================================================================
+   OTWR Configurable Theme System
+   Supports "canyon" (warm) and "pine" (cool) presets.
+   Admin console can override by setting data-theme on <html>.
+   ================================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Font families */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Semantic color tokens — wired to CSS custom props below */
+  --color-background: var(--otwr-bg);
+  --color-foreground: var(--otwr-text);
+  --color-surface: var(--otwr-surface);
+  --color-surface-elevated: var(--otwr-surface-elevated);
+  --color-muted: var(--otwr-text-muted);
+  --color-inverse: var(--otwr-text-inverse);
+  --color-primary: var(--otwr-primary);
+  --color-primary-muted: var(--otwr-primary-muted);
+  --color-secondary: var(--otwr-secondary);
+  --color-border: var(--otwr-border);
+  --color-border-subtle: var(--otwr-border-subtle);
+
+  /* Dark-mode semantic tokens */
+  --color-dark-bg: var(--otwr-dark-bg);
+  --color-dark-surface: var(--otwr-dark-surface);
+  --color-dark-surface-elevated: var(--otwr-dark-surface-elevated);
+  --color-dark-primary: var(--otwr-dark-primary);
+  --color-dark-primary-muted: var(--otwr-dark-primary-muted);
+  --color-dark-secondary: var(--otwr-dark-secondary);
 }
 
+/* ---------------------- Light mode (default) ---------------------- */
+:root {
+  /* Default to canyon until JS hydrates */
+  --otwr-bg: #FDF8F3;
+  --otwr-surface: #FFFFFF;
+  --otwr-surface-elevated: #F5EDE4;
+  --otwr-text: #3D2B1F;
+  --otwr-text-muted: #8C7B6B;
+  --otwr-text-inverse: #FDF8F3;
+  --otwr-primary: #8C4A2F;
+  --otwr-primary-muted: #B87A5A;
+  --otwr-secondary: #BFA36F;
+  --otwr-border: #E8DDD0;
+  --otwr-border-subtle: #F0E6DA;
+
+  --otwr-dark-bg: #1C1512;
+  --otwr-dark-surface: #2E211A;
+  --otwr-dark-surface-elevated: #3A2A20;
+  --otwr-dark-primary: #D4A574;
+  --otwr-dark-primary-muted: #B88B5E;
+  --otwr-dark-secondary: #C4A97D;
+}
+
+/* ---------------------- Pine overrides ---------------------- */
+[data-theme="pine"] {
+  --otwr-bg: #F6F5F0;
+  --otwr-surface: #FFFFFF;
+  --otwr-surface-elevated: #EDECE6;
+  --otwr-text: #1E2622;
+  --otwr-text-muted: #6B756F;
+  --otwr-text-inverse: #F6F5F0;
+  --otwr-primary: #3A4D39;
+  --otwr-primary-muted: #5C7A6B;
+  --otwr-secondary: #8B7E66;
+  --otwr-border: #D8D4C9;
+  --otwr-border-subtle: #E5E2D9;
+
+  --otwr-dark-bg: #121C17;
+  --otwr-dark-surface: #1A2A22;
+  --otwr-dark-surface-elevated: #22332A;
+  --otwr-dark-primary: #7A9E87;
+  --otwr-dark-primary-muted: #5E856B;
+  --otwr-dark-secondary: #9A8E76;
+}
+
+/* ---------------------- Dark mode via prefers-color-scheme ---------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --otwr-bg: var(--otwr-dark-bg);
+    --otwr-surface: var(--otwr-dark-surface);
+    --otwr-surface-elevated: var(--otwr-dark-surface-elevated);
+    --otwr-text: var(--otwr-text-inverse);
+    --otwr-text-muted: var(--otwr-dark-primary-muted);
+    --otwr-primary: var(--otwr-dark-primary);
+    --otwr-primary-muted: var(--otwr-dark-primary-muted);
+    --otwr-secondary: var(--otwr-dark-secondary);
+    --otwr-border: #3A2A20;
+    --otwr-border-subtle: #2E211A;
+  }
+
+  [data-theme="pine"] {
+    --otwr-bg: var(--otwr-dark-bg);
+    --otwr-surface: var(--otwr-dark-surface);
+    --otwr-surface-elevated: var(--otwr-dark-surface-elevated);
+    --otwr-text: var(--otwr-text-inverse);
+    --otwr-text-muted: var(--otwr-dark-primary-muted);
+    --otwr-primary: var(--otwr-dark-primary);
+    --otwr-primary-muted: var(--otwr-dark-primary-muted);
+    --otwr-secondary: var(--otwr-dark-secondary);
+    --otwr-border: #22332A;
+    --otwr-border-subtle: #1A2A22;
   }
 }
 
+/* Base element styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--otwr-bg);
+  color: var(--otwr-text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
