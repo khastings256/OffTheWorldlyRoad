@@ -87,7 +87,7 @@ export function Header() {
               <ThemeToggle />
             </div>
 
-            <div className="hidden sm:block">
+            <div>
               <LoginDropdown />
             </div>
 
