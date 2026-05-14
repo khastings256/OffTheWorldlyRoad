@@ -1,19 +1,19 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/lib/dummy-data";
 import { AddToCartButton } from "./AddToCartButton";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
 }
 
 interface ProductDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const product = products.find((p) => p.id === params.id);
+export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+  const { id } = await params;
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     notFound();

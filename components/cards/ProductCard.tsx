@@ -35,6 +35,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>) => {
+      // Don't trigger card navigation when a child button/link is focused
+      if (e.target !== e.currentTarget) return;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         handleCardClick();
