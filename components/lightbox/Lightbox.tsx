@@ -32,9 +32,10 @@ export function Lightbox({
       const timer = setTimeout(() => {
         closeButtonRef.current?.focus();
       }, 10);
-      return () => clearTimeout(timer);
-    } else {
-      document.body.style.overflow = "";
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = "";
+      };
     }
   }, [isOpen]);
 
@@ -141,7 +142,11 @@ export function Lightbox({
       onClick={handleBackdropClick}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 transition-opacity" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-black/80 transition-opacity"
+        aria-hidden="true"
+        onClick={handleBackdropClick}
+      />
 
       {/* Close button */}
       <button
