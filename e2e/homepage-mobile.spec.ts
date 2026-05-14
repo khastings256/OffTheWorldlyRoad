@@ -1,54 +1,49 @@
 import { test, expect } from "./fixtures";
 
 test.describe("Homepage — Mobile", () => {
-  const drawer = (page: any) => page.locator("div.md\\:hidden.flex.flex-col");
+  test("hamburger opens mobile drawer", async ({ mobileHomePage }) => {
+    const { mobileNav } = mobileHomePage;
+    await expect(mobileNav.openMenuBtn).toBeVisible();
+    await mobileNav.open();
 
-  test("hamburger opens mobile drawer", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    const openBtn = mobilePage.getByRole("button", { name: /open menu/i });
-    await expect(openBtn).toBeVisible();
-    await openBtn.click();
-
-    await expect(mobilePage.getByRole("button", { name: /close menu/i })).toBeVisible();
-    await expect(drawer(mobilePage).getByText(/faith, wilderness/i)).toBeVisible();
+    await expect(mobileNav.closeMenuBtn).toBeVisible();
+    await expect(mobileNav.tagline).toBeVisible();
   });
 
-  test("mobile drawer shows all nav links", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    await mobilePage.getByRole("button", { name: /open menu/i }).click();
+  test("mobile drawer shows all nav links", async ({ mobileHomePage }) => {
+    const { mobileNav } = mobileHomePage;
+    await mobileNav.open();
 
-    const nav = drawer(mobilePage);
-    await expect(nav.getByRole("link", { name: "Home" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Gallery" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Blog" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Shop" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "About" })).toBeVisible();
+    await expect(mobileNav.navLink("Home")).toBeVisible();
+    await expect(mobileNav.navLink("Gallery")).toBeVisible();
+    await expect(mobileNav.navLink("Blog")).toBeVisible();
+    await expect(mobileNav.navLink("Shop")).toBeVisible();
+    await expect(mobileNav.navLink("About")).toBeVisible();
   });
 
-  test("mobile drawer closes on backdrop tap", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    await mobilePage.getByRole("button", { name: /open menu/i }).click();
-    await expect(mobilePage.getByRole("button", { name: /close menu/i })).toBeVisible();
+  test("mobile drawer closes on backdrop tap", async ({ mobileHomePage }) => {
+    const { mobileNav } = mobileHomePage;
+    await mobileNav.open();
+    await expect(mobileNav.closeMenuBtn).toBeVisible();
 
-    // Click on the left edge of the screen (backdrop, not covered by drawer)
-    await mobilePage.mouse.click(10, 10);
-    await expect(mobilePage.getByRole("button", { name: /close menu/i })).not.toBeVisible();
+    await mobileNav.closeViaBackdrop();
+    await expect(mobileNav.closeMenuBtn).not.toBeVisible();
   });
 
-  test("mobile drawer closes on link tap", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    await mobilePage.getByRole("button", { name: /open menu/i }).click();
-    await drawer(mobilePage).getByRole("link", { name: "Gallery" }).click();
-    await expect(mobilePage.getByRole("button", { name: /close menu/i })).not.toBeVisible();
+  test("mobile drawer closes on link tap", async ({ mobileHomePage }) => {
+    const { mobileNav } = mobileHomePage;
+    await mobileNav.open();
+    await mobileNav.closeViaLink("Gallery");
+    await expect(mobileNav.closeMenuBtn).not.toBeVisible();
   });
 
-  test("theme toggle is hidden on mobile", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    await expect(mobilePage.getByRole("button", { name: /canyon/i })).not.toBeVisible();
+  test("theme toggle is hidden on mobile", async ({ mobileHomePage }) => {
+    const { header } = mobileHomePage;
+    await expect(header.themeCanyonBtn).not.toBeVisible();
   });
 
-  test("login button is hidden on mobile", async ({ mobilePage }) => {
-    await mobilePage.goto("http://172.19.0.7:3000/");
-    await expect(mobilePage.getByRole("button", { name: /sign in/i })).not.toBeVisible();
+  test("login button is hidden on mobile", async ({ mobileHomePage }) => {
+    const { header } = mobileHomePage;
+    await expect(header.signInToggleBtn).not.toBeVisible();
   });
 });

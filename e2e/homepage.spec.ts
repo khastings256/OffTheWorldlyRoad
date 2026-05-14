@@ -1,45 +1,39 @@
 import { test, expect } from "./fixtures";
 
 test.describe("Homepage — Desktop", () => {
-  test("renders header with logo and navigation", async ({ page }) => {
-    await page.goto("http://172.19.0.7:3000/");
-    await expect(page.getByAltText(/off the worldly road/i).first()).toBeVisible();
-    await expect(page.getByText("OTWR")).toBeVisible();
-    await expect(page.getByRole("link", { name: /^home$/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /gallery/i })).toBeVisible();
+  test("renders header with logo and navigation", async ({ homePage }) => {
+    const { header } = homePage;
+    await expect(header.logoImage).toBeVisible();
+    await expect(header.brandText).toBeVisible();
+    await expect(header.navLink(/^home$/i)).toBeVisible();
+    await expect(header.navLink(/gallery/i)).toBeVisible();
   });
 
-  test("theme toggle switches between Canyon and Pine", async ({ page }) => {
-    await page.goto("http://172.19.0.7:3000/");
-    const canyonBtn = page.getByRole("button", { name: /canyon/i });
-    const pineBtn = page.getByRole("button", { name: /pine/i });
+  test("theme toggle switches between Canyon and Pine", async ({ homePage }) => {
+    const { header, page } = homePage;
+    const { themeCanyonBtn, themePineBtn } = header;
 
-    await expect(canyonBtn).toHaveAttribute("aria-pressed", "true");
-    await pineBtn.click();
-    await expect(pineBtn).toHaveAttribute("aria-pressed", "true");
-    await expect(canyonBtn).toHaveAttribute("aria-pressed", "false");
+    await expect(themeCanyonBtn).toHaveAttribute("aria-pressed", "true");
+    await themePineBtn.click();
+    await expect(themePineBtn).toHaveAttribute("aria-pressed", "true");
+    await expect(themeCanyonBtn).toHaveAttribute("aria-pressed", "false");
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "pine");
   });
 
-  test("login flow: sign in and sign out", async ({ page }) => {
-    await page.goto("http://172.19.0.7:3000/");
-    await page.getByRole("button", { name: /sign in/i }).first().click();
-    await page.getByLabel(/email/i).fill("test@example.com");
-    await page.getByLabel(/password/i).fill("password123");
-    await page.locator("form").getByRole("button", { name: /^sign in$/i }).click();
+  test("login flow: sign in and sign out", async ({ homePage }) => {
+    const { header } = homePage;
 
-    await expect(page.getByText("Kenneth")).toBeVisible();
+    await header.login();
+    await expect(header.loggedInUserBtn).toBeVisible();
 
-    await page.getByText("Kenneth").click();
-    await page.getByRole("button", { name: /sign out/i }).click();
-
-    await expect(page.getByRole("button", { name: /sign in/i }).first()).toBeVisible();
+    await header.logout();
+    await expect(header.signInToggleBtn).toBeVisible();
   });
 
-  test("navigation updates active state", async ({ page }) => {
-    await page.goto("http://172.19.0.7:3000/");
-    const blogLink = page.getByRole("link", { name: /blog/i });
+  test("navigation updates active state", async ({ homePage }) => {
+    const { header } = homePage;
+    const blogLink = header.navLink(/blog/i);
     await blogLink.click();
     await expect(blogLink).toHaveClass(/text-primary/);
   });

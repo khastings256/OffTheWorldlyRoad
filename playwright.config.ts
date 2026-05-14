@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import { testConfig } from "./e2e/config";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -8,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "list",
   use: {
-    baseURL: "http://172.19.0.7:3000",
+    baseURL: testConfig.baseURL,
     trace: "on-first-retry",
   },
 });
