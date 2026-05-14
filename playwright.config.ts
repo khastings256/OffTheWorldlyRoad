@@ -13,13 +13,15 @@ export default defineConfig({
   use: {
     baseURL: testConfig.baseURL,
     trace: "on-first-retry",
+    screenshot: "on",
+    video: "retain-on-failure",
   },
   webServer: process.env.CI
     ? {
-        command: "npm start",
-        url: "http://localhost:3000",
-        reuseExistingServer: false,
-        timeout: 120_000,
-      }
+      command: "npm start",
+      url: "http://localhost:3000",
+      reuseExistingServer: false,
+      timeout: 120_000,
+    }
     : undefined,
 });
