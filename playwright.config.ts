@@ -7,9 +7,17 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "list",
+  reporter: process.env.CI ? "github" : "list",
   use: {
     baseURL: testConfig.baseURL,
     trace: "on-first-retry",
   },
+  webServer: process.env.CI
+    ? {
+        command: "npm start",
+        url: "http://localhost:3000",
+        reuseExistingServer: false,
+        timeout: 120_000,
+      }
+    : undefined,
 });
