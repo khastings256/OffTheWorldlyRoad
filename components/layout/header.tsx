@@ -42,7 +42,8 @@ export function Header() {
   const { totalItems } = useCart();
 
   // Update active state on navigation
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
     setCurrentPath(href);
   };
 
@@ -80,7 +81,7 @@ export function Header() {
             <a
               key={link.label}
               href={link.href}
-              onClick={() => handleNavClick(link.href)}
+              onClick={(e) => handleNavClick(e, link.href)}
               className={
                     "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors " +
                     (isActive

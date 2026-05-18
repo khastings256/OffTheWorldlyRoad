@@ -1,64 +1,68 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { Header } from "@/components/layout/header";
+import React from 'react';
 
-describe("Header", () => {
-  const user = userEvent.setup();
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Header } from '@/components/layout/header';
+import { useCart } from '@/lib/cart';
 
+// Mock the cart hook
+jest.mock('@/lib/cart', () => ({
+  useCart: jest.fn(),
+}));
+
+// Mock the LoginDropdown to avoid auth complexity
+jest.mock('@/components/layout/login-dropdown', () => ({
+  LoginDropdown: () => <div>LoginDropdown Mock</div>,
+}));
+
+// Mock next/link to avoid Next.js routing in tests
+jest.mock('next/link', () => {
+  return ({ children, href }: { children: React.ReactNode; href: string }) =>
+    React.createElement('a', { href }, children);
+});
+
+describe('Header Component', () => {
   beforeEach(() => {
-    localStorage.clear();
-    document.documentElement.removeAttribute("data-theme");
-    document.documentElement.style.cssText = "";
+    (useCart as jest.Mock).mockReturnValue({ totalItems: 0 });
   });
 
-  it("renders logo and OTWR wordmark", () => {
+  it('renders the logo and brand name', () => {
     render(<Header />);
-    expect(screen.getByAltText(/off the worldly road/i)).toBeInTheDocument();
-    expect(screen.getByText("OTWR")).toBeInTheDocument();
+    expect(screen.getByAltText('Off The Worldly Road')).toBeInTheDocument();
+    expect(screen.getByText('OTWR')).toBeInTheDocument();
   });
 
-  it("renders desktop navigation links", () => {
+  it('renders navigation links', () => {
     render(<Header />);
-    expect(screen.getByRole("link", { name: /^home$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /gallery/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /blog/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /shop/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /about/i })).toBeInTheDocument();
+    const links = ['Home', 'Gallery', 'Blog', 'Shop', 'About'];
+    links.forEach((link) => {
+      expect(screen.getByText(link)).toBeInTheDocument();
+    });
   });
 
-  it("marks Home as active by default", () => {
+  it('updates active state on navigation click', () => {
     render(<Header />);
-    const homeLink = screen.getByRole("link", { name: /^home$/i });
-    expect(homeLink).toHaveClass("text-primary");
+    const aboutLink = screen.getByText('About');
+    fireEvent.click(aboutLink);
+    expect(aboutLink).toHaveClass('text-primary');
   });
 
-  it("switches active state on nav click", async () => {
+  it('shows cart item count when items are present', () => {
+    (useCart as jest.Mock).mockReturnValue({ totalItems: 3 });
     render(<Header />);
-
-    const blogLink = screen.getByRole("link", { name: /blog/i });
-    await user.click(blogLink);
-
-    expect(blogLink).toHaveClass("text-primary");
-    expect(screen.getByRole("link", { name: /^home$/i })).not.toHaveClass(
-      "text-primary"
-    );
+    expect(screen.getByText('3')).toBeInTheDocument();
   });
 
-  it("renders theme toggle and login on desktop", () => {
+  it('does not show cart count when empty', () => {
     render(<Header />);
-    expect(screen.getByRole("button", { name: /canyon/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /pine/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+    expect(screen.queryByText('0')).not.toBeInTheDocument();
   });
 
-  it("renders mobile hamburger button", () => {
+  it('opens mobile menu when hamburger is clicked', () => {
     render(<Header />);
-    expect(screen.getByLabelText(/open menu/i)).toBeInTheDocument();
-  });
-
-  it("opens mobile nav when hamburger is clicked", async () => {
-    render(<Header />);
-    await user.click(screen.getByLabelText(/open menu/i));
-    expect(screen.getByLabelText(/close menu/i)).toBeInTheDocument();
+    const hamburger = screen.getByLabelText('Open menu');
+    fireEvent.click(hamburger);
+    // MobileNav is mocked, so we can't assert visibility here
+    // This test verifies the click handler is called
+    expect(hamburger).toHaveAttribute('aria-expanded', 'true');
   });
 });

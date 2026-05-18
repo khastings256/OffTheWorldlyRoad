@@ -10,7 +10,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.3",

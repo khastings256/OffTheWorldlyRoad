@@ -45,7 +45,7 @@ export class HeaderComponent {
   }
 
   get loggedInUserBtn(): Locator {
-    return this.page.getByText(testConfig.credentials.name).first();
+    return this.page.getByText(testConfig.credentials?.name || "Test User").first();
   }
 
   get signOutBtn(): Locator {
@@ -62,8 +62,8 @@ export class HeaderComponent {
 
   async login(email?: string, password?: string) {
     await this.signInToggleBtn.click();
-    await this.emailInput.fill(email ?? testConfig.credentials.email);
-    await this.passwordInput.fill(password ?? testConfig.credentials.password);
+    await this.emailInput.fill((email ?? testConfig.credentials?.email) || "test@example.com");
+    await this.passwordInput.fill((password ?? testConfig.credentials?.password) || "password123");
     await this.signInSubmitBtn.click();
   }
 
