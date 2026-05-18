@@ -16,12 +16,10 @@ export default defineConfig({
     screenshot: "on",
     video: "retain-on-failure",
   },
-  webServer: process.env.CI
-    ? {
-      command: "npm start",
-      url: "http://localhost:3000",
-      reuseExistingServer: false,
-      timeout: 120_000,
-    }
-    : undefined,
+  webServer: {
+    command: process.env.CI ? "npm start" : "npm run dev",
+    url: "http://localhost:3000",
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
 });

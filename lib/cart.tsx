@@ -8,6 +8,9 @@ import {
   useMemo,
   type ReactNode,
 } from "react";
+import { MAX_QUANTITY } from "./cart-constants";
+
+export { MAX_QUANTITY };
 
 export interface CartItem {
   productId: string;
@@ -70,9 +73,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setItems((prev) => prev.filter((i) => i.productId !== productId));
       return;
     }
+    const safeQuantity = Math.min(Math.floor(quantity), MAX_QUANTITY);
     setItems((prev) =>
       prev.map((i) =>
-        i.productId === productId ? { ...i, quantity } : i
+        i.productId === productId ? { ...i, quantity: safeQuantity } : i
       )
     );
   }, []);

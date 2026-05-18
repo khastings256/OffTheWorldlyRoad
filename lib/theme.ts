@@ -43,7 +43,7 @@ export const themePresets: Record<ThemeName, ThemeColors> = {
     surface: "#FFFFFF",
     surfaceElevated: "#F5EDE4",
     text: "#3D2B1F",
-    textMuted: "#8C7B6B",
+    textMuted: "#6B5B4B",
     textInverse: "#FDF8F3",
     primary: "#8C4A2F",
     primaryMuted: "#B87A5A",

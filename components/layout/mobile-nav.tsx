@@ -14,8 +14,8 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Gallery", href: "#gallery" },
   { label: "Blog", href: "#blog" },
-  { label: "Shop", href: "#shop" },
-  { label: "About", href: "#about" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/about" },
 ];
 
 export function MobileNav({ isOpen, onClose, currentPath }: MobileNavProps) {

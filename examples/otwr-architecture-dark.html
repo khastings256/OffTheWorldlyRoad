@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTWR Architecture Diagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #020617;
+      min-height: 100vh;
+      padding: 2rem;
+      color: white;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .pulse-dot {
+      width: 12px;
+      height: 12px;
+      background: #22d3ee;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+    .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+    .diagram-container {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 1rem;
+      border: 1px solid #1e293b;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+    svg { width: 100%; min-width: 900px; display: block; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 0.75rem;
+      border: 1px solid #1e293b;
+      padding: 1.25rem;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .card-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .card-dot.cyan { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.violet { background: #a78bfa; }
+    .card-dot.amber { background: #fbbf24; }
+    .card-dot.rose { background: #fb7185; }
+    .card h3 { font-size: 0.875rem; font-weight: 600; }
+    .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+    .card li { margin-bottom: 0.375rem; }
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #475569;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>OffTheWorldlyRoad Architecture</h1>
+      </div>
+      <p class="subtitle">Next.js 16 + Auth.js + Vercel Postgres</p>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1000 520">
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <!-- Vercel Cloud Boundary -->
+        <rect x="160" y="40" width="820" height="460" rx="12" fill="rgba(251, 191, 36, 0.05)" stroke="#fbbf24" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="172" y="58" fill="#fbbf24" font-size="10" font-weight="600">Vercel Edge Network</text>
+
+        <!-- User -->
+        <rect x="30" y="200" width="100" height="50" rx="6" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="80" y="220" fill="white" font-size="11" font-weight="600" text-anchor="middle">Visitor</text>
+        <text x="80" y="236" fill="#94a3b8" font-size="9" text-anchor="middle">Browser</text>
+
+        <!-- Next.js App (Frontend + Server) -->
+        <rect x="200" y="120" width="200" height="100" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="300" y="150" fill="white" font-size="12" font-weight="600" text-anchor="middle">Next.js App</text>
+        <text x="300" y="170" fill="#94a3b8" font-size="9" text-anchor="middle">React 19 + App Router</text>
+        <text x="300" y="185" fill="#94a3b8" font-size="9" text-anchor="middle">Server Actions</text>
+        <text x="300" y="205" fill="#22d3ee" font-size="8" text-anchor="middle">otwr.vercel.app</text>
+
+        <!-- Auth.js -->
+        <rect x="200" y="260" width="140" height="70" rx="6" fill="rgba(136, 19, 55, 0.4)" stroke="#fb7185" stroke-width="1.5"/>
+        <text x="270" y="285" fill="white" font-size="11" font-weight="600" text-anchor="middle">Auth.js v5</text>
+        <text x="270" y="301" fill="#94a3b8" font-size="9" text-anchor="middle">OAuth 2.0 / Sessions</text>
+        <text x="270" y="318" fill="#fb7185" font-size="8" text-anchor="middle">GitHub / Google</text>
+
+        <!-- OAuth Providers -->
+        <rect x="30" y="340" width="120" height="50" rx="6" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="90" y="360" fill="white" font-size="10" font-weight="600" text-anchor="middle">OAuth Providers</text>
+        <text x="90" y="376" fill="#94a3b8" font-size="8" text-anchor="middle">GitHub · Google</text>
+
+        <!-- API Routes -->
+        <rect x="460" y="140" width="120" height="60" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="520" y="165" fill="white" font-size="11" font-weight="600" text-anchor="middle">API Routes</text>
+        <text x="520" y="181" fill="#94a3b8" font-size="9" text-anchor="middle">/api/*</text>
+
+        <!-- Prisma ORM -->
+        <rect x="460" y="260" width="120" height="60" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="520" y="285" fill="white" font-size="11" font-weight="600" text-anchor="middle">Prisma ORM</text>
+        <text x="520" y="301" fill="#94a3b8" font-size="9" text-anchor="middle">Schema + Queries</text>
+
+        <!-- Vercel Postgres -->
+        <rect x="660" y="200" width="140" height="80" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="730" y="225" fill="white" font-size="11" font-weight="600" text-anchor="middle">Vercel Postgres</text>
+        <text x="730" y="241" fill="#94a3b8" font-size="9" text-anchor="middle">Neon Serverless</text>
+        <text x="730" y="257" fill="#a78bfa" font-size="8" text-anchor="middle">Users · Profiles</text>
+        <text x="730" y="270" fill="#a78bfa" font-size="8" text-anchor="middle">Sessions</text>
+
+        <!-- Arrows -->
+        <line x1="130" y1="225" x2="198" y2="170" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <text x="158" y="162" fill="#94a3b8" font-size="9" text-anchor="middle">HTTPS</text>
+
+        <line x1="400" y1="170" x2="458" y2="170" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <text x="430" y="164" fill="#94a3b8" font-size="9" text-anchor="middle">fetch</text>
+
+        <line x1="580" y1="170" x2="658" y2="220" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <text x="625" y="185" fill="#94a3b8" font-size="9" text-anchor="middle">SQL</text>
+
+        <line x1="340" y1="220" x2="340" y2="258" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <text x="355" y="245" fill="#fb7185" font-size="8">signIn()</text>
+
+        <path d="M 270 330 L 270 360 Q 270 380 250 380 L 150 380 Q 130 380 130 360 L 130 350" fill="none" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+        <text x="210" y="375" fill="#fb7185" font-size="8">OAuth callback</text>
+
+        <line x1="580" y1="290" x2="658" y2="250" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <text x="625" y="285" fill="#94a3b8" font-size="9" text-anchor="middle">SQL</text>
+
+        <!-- Legend -->
+        <text x="720" y="70" fill="white" font-size="10" font-weight="600">Legend</text>
+        <rect x="720" y="82" width="16" height="10" rx="2" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1"/>
+        <text x="742" y="90" fill="#94a3b8" font-size="8">Frontend</text>
+        <rect x="720" y="98" width="16" height="10" rx="2" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1"/>
+        <text x="742" y="106" fill="#94a3b8" font-size="8">Backend / API</text>
+        <rect x="720" y="114" width="16" height="10" rx="2" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1"/>
+        <text x="742" y="122" fill="#94a3b8" font-size="8">Database</text>
+        <rect x="720" y="130" width="16" height="10" rx="2" fill="rgba(136, 19, 55, 0.4)" stroke="#fb7185" stroke-width="1"/>
+        <text x="742" y="138" fill="#94a3b8" font-size="8">Auth / Security</text>
+        <rect x="720" y="146" width="16" height="10" rx="2" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1"/>
+        <text x="742" y="154" fill="#94a3b8" font-size="8">External</text>
+        <line x1="720" y1="168" x2="736" y2="168" stroke="#fb7185" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="742" y="171" fill="#94a3b8" font-size="8">Auth Flow</text>
+      </svg>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot cyan"></div>
+          <h3>Frontend Layer</h3>
+        </div>
+        <ul>
+          <li>• Next.js 16 App Router</li>
+          <li>• React 19 + Tailwind CSS v4</li>
+          <li>• Server Components by default</li>
+          <li>• Client components for interactivity</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot rose"></div>
+          <h3>Auth & Identity</h3>
+        </div>
+        <ul>
+          <li>• Auth.js v5 (NextAuth successor)</li>
+          <li>• OAuth 2.0 via GitHub / Google</li>
+          <li>• JWT sessions stored in HTTP-only cookies</li>
+          <li>• Account profiles in Postgres</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot violet"></div>
+          <h3>Data Layer</h3>
+        </div>
+        <ul>
+          <li>• Vercel Postgres (Neon serverless)</li>
+          <li>• Prisma ORM for type-safe queries</li>
+          <li>• Users, Accounts, Sessions, Profiles</li>
+          <li>• Auto-scaling connection pool</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer">
+      OffTheWorldlyRoad • Next.js 16 + React 19
+    </p>
+  </div>
+</body>
+</html>

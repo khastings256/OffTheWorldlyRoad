@@ -1,10 +1,18 @@
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
 export const testConfig = {
-  baseURL: process.env.TEST_BASE_URL || (process.env.CI ? "http://localhost:3000" : "http://172.19.0.7:3000"),
-  credentials: {
-    email: process.env.TEST_USER_EMAIL || "test@example.com",
-    password: process.env.TEST_USER_PASSWORD || "password123",
-    name: process.env.TEST_USER_NAME || "Kenneth",
-  },
+  baseURL: process.env.TEST_BASE_URL || "http://localhost:3000",
+  credentials: process.env.TEST_USER_EMAIL ? {
+    email: requireEnv("TEST_USER_EMAIL"),
+    password: requireEnv("TEST_USER_PASSWORD"),
+    name: requireEnv("TEST_USER_NAME"),
+  } : undefined,
   timeouts: {
     navigation: 10_000,
     element: 5_000,

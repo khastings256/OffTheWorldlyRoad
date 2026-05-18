@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useCart, CartProvider } from "@/lib/cart";
+import { useCart, CartProvider, MAX_QUANTITY } from "@/lib/cart";
 
 function TestComponent() {
   const {
@@ -59,6 +59,12 @@ function TestComponent() {
         onClick={() => updateQuantity("prod-1", 0)}
       >
         Update Zero
+      </button>
+      <button
+        data-testid="update-max"
+        onClick={() => updateQuantity("prod-1", MAX_QUANTITY + 1)}
+      >
+        Update Over Max
       </button>
       <button data-testid="clear" onClick={clearCart}>
         Clear
@@ -139,6 +145,21 @@ describe("CartContext", () => {
     expect(screen.queryByTestId("item-prod-1")).not.toBeInTheDocument();
     expect(screen.getByTestId("total-items")).toHaveTextContent("0");
     expect(screen.getByTestId("total-price")).toHaveTextContent("0.00");
+  });
+
+  it("updateQuantity enforces MAX_QUANTITY upper bound", async () => {
+    renderWithProvider();
+    await user.click(screen.getByTestId("add-new"));
+    await user.click(screen.getByTestId("update-max"));
+    expect(screen.getByTestId("item-prod-1")).toHaveTextContent(
+      `Test Product x${MAX_QUANTITY}`
+    );
+    expect(screen.getByTestId("total-items")).toHaveTextContent(
+      String(MAX_QUANTITY)
+    );
+    expect(screen.getByTestId("total-price")).toHaveTextContent(
+      (10 * MAX_QUANTITY).toFixed(2)
+    );
   });
 
   it("clearCart empties the cart", async () => {

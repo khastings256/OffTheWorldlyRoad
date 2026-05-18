@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { CartProvider } from "@/lib/cart";
+import { SessionProvider } from "@/components/auth";
 import { Header } from "@/components/layout";
 
 const geistSans = Geist({
@@ -32,12 +33,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col transition-colors duration-300">
-        <ThemeProvider>
-          <CartProvider>
-            <Header />
-            {children}
-          </CartProvider>
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider>
+            <CartProvider>
+              <Header />
+              {children}
+            </CartProvider>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

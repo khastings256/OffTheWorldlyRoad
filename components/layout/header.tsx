@@ -13,8 +13,8 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Gallery", href: "#gallery" },
   { label: "Blog", href: "#blog" },
-  { label: "Shop", href: "#shop" },
-  { label: "About", href: "#about" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/about" },
 ];
 
 function ShoppingCartIcon({ className }: { className?: string }) {
@@ -41,14 +41,9 @@ export function Header() {
   const [currentPath, setCurrentPath] = useState("/");
   const { totalItems } = useCart();
 
-  // Simulated navigation handler — updates active state without actual routing
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
+  // Update active state on navigation
+  const handleNavClick = (href: string) => {
     setCurrentPath(href);
-    // Scroll to top for "home", otherwise a placeholder behavior
-    if (href === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
   };
 
   return (
@@ -82,11 +77,11 @@ export function Header() {
             {NAV_LINKS.map((link) => {
               const isActive = currentPath === link.href;
               return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => handleNavClick(link.href)}
+              className={
                     "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors " +
                     (isActive
                       ? "text-primary"

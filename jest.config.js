@@ -17,6 +17,9 @@ const config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(next-auth|@auth)/)',
+  ],
 }
 
 module.exports = createJestConfig(config)

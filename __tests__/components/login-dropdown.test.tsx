@@ -1,62 +1,96 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LoginDropdown } from "@/components/layout/login-dropdown";
+import { useSession, signIn, signOut } from "next-auth/react";
+
+jest.mock("next-auth/react", () => ({
+  useSession: jest.fn(),
+  signIn: jest.fn(),
+  signOut: jest.fn(),
+}));
+
+const mockUseSession = useSession as jest.Mock;
+const mockSignIn = signIn as jest.Mock;
+const mockSignOut = signOut as jest.Mock;
 
 describe("LoginDropdown", () => {
   const user = userEvent.setup();
 
-  it("renders Sign In button initially", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("renders Sign In button when unauthenticated", () => {
+    mockUseSession.mockReturnValue({ data: null, status: "unauthenticated" });
     render(<LoginDropdown />);
     expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
   });
 
-  it("opens dropdown when Sign In is clicked", async () => {
+  it("opens dropdown with OAuth buttons when Sign In is clicked", async () => {
+    mockUseSession.mockReturnValue({ data: null, status: "unauthenticated" });
     render(<LoginDropdown />);
     await user.click(screen.getByRole("button", { name: /sign in/i }));
 
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    // Form submit button is the second "Sign In" button
-    expect(
-      screen.getAllByRole("button", { name: /^sign in$/i })[1]
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /continue with github/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /continue with google/i })).toBeInTheDocument();
   });
 
-  it("allows typing email and password", async () => {
+  it("calls signIn with 'github' when GitHub button is clicked", async () => {
+    mockUseSession.mockReturnValue({ data: null, status: "unauthenticated" });
     render(<LoginDropdown />);
     await user.click(screen.getByRole("button", { name: /sign in/i }));
+    await user.click(screen.getByRole("button", { name: /continue with github/i }));
 
-    const emailInput = screen.getByLabelText(/email/i);
-    const passwordInput = screen.getByLabelText(/password/i);
-
-    await user.type(emailInput, "kenneth@offtheworldlyroad.com");
-    await user.type(passwordInput, "password123");
-
-    expect(emailInput).toHaveValue("kenneth@offtheworldlyroad.com");
-    expect(passwordInput).toHaveValue("password123");
+    expect(mockSignIn).toHaveBeenCalledWith("github");
   });
 
-  it("simulates login and shows user state", async () => {
+  it("calls signIn with 'google' when Google button is clicked", async () => {
+    mockUseSession.mockReturnValue({ data: null, status: "unauthenticated" });
     render(<LoginDropdown />);
     await user.click(screen.getByRole("button", { name: /sign in/i }));
+    await user.click(screen.getByRole("button", { name: /continue with google/i }));
 
-    await user.type(screen.getByLabelText(/email/i), "test@example.com");
-    await user.type(screen.getByLabelText(/password/i), "secret");
-    await user.click(
-      screen.getAllByRole("button", { name: /^sign in$/i })[1]
-    );
+    expect(mockSignIn).toHaveBeenCalledWith("google");
+  });
 
-    await waitFor(
-      () => {
-        expect(screen.getByText("Kenneth")).toBeInTheDocument();
+  it("shows user avatar and name when authenticated", () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: {
+          name: "Kenneth Hastings",
+          email: "kenneth@offtheworldlyroad.com",
+          image: "/images/logo.jpg",
+        },
       },
-      { timeout: 2000 }
-    );
+      status: "authenticated",
+    });
+    render(<LoginDropdown />);
 
-    expect(screen.queryByLabelText(/email/i)).not.toBeInTheDocument();
+    expect(screen.getByText("Kenneth")).toBeInTheDocument();
+  });
+
+  it("opens user menu when avatar is clicked", async () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: {
+          name: "Kenneth Hastings",
+          email: "kenneth@offtheworldlyroad.com",
+          image: "/images/logo.jpg",
+        },
+      },
+      status: "authenticated",
+    });
+    render(<LoginDropdown />);
+    await user.click(screen.getByText("Kenneth"));
+
+    expect(screen.getByText("Profile")).toBeInTheDocument();
+    expect(screen.getByText("Settings")).toBeInTheDocument();
+    expect(screen.getByText("Orders")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign out/i })).toBeInTheDocument();
   });
 
   it("closes dropdown when clicking outside", async () => {
+    mockUseSession.mockReturnValue({ data: null, status: "unauthenticated" });
     render(
       <div>
         <LoginDropdown />
@@ -65,36 +99,29 @@ describe("LoginDropdown", () => {
     );
 
     await user.click(screen.getByRole("button", { name: /sign in/i }));
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /continue with github/i })).toBeInTheDocument();
 
     await user.click(screen.getByTestId("outside"));
     await waitFor(() => {
-      expect(screen.queryByLabelText(/email/i)).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /continue with github/i })).not.toBeInTheDocument();
     });
   });
 
-  it("logs out and returns to Sign In state", async () => {
-    render(<LoginDropdown />);
-    await user.click(screen.getByRole("button", { name: /sign in/i }));
-
-    await user.type(screen.getByLabelText(/email/i), "test@example.com");
-    await user.type(screen.getByLabelText(/password/i), "secret");
-    await user.click(
-      screen.getAllByRole("button", { name: /^sign in$/i })[1]
-    );
-
-    await waitFor(
-      () => {
-        expect(screen.getByText("Kenneth")).toBeInTheDocument();
+  it("calls signOut when Sign Out is clicked", async () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: {
+          name: "Kenneth Hastings",
+          email: "kenneth@offtheworldlyroad.com",
+          image: "/images/logo.jpg",
+        },
       },
-      { timeout: 2000 }
-    );
-
+      status: "authenticated",
+    });
+    render(<LoginDropdown />);
     await user.click(screen.getByText("Kenneth"));
     await user.click(screen.getByRole("button", { name: /sign out/i }));
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
-    });
+    expect(mockSignOut).toHaveBeenCalled();
   });
 });
