@@ -1,6 +1,6 @@
 import { test, expect } from "./fixtures";
 
-const paths = ["/gallery", "/videos", "/shop", "/shop/product-1"];
+const paths = ["/", "/about", "/gallery", "/videos", "/shop", "/shop/product-1"];
 
 for (const path of paths) {
   test(`no internal console errors on ${path}`, async ({ page }) => {
